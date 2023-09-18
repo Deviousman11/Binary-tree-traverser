@@ -1,0 +1,103 @@
+/**
+ * Represents a node in a binary tree.
+ * @class
+ */
+class Node {
+    /**
+     * Constructor for the Node class.
+     * @param {number} value - The value of the node.
+     */
+    constructor(value) {
+        /** @private */
+        this.value = value;
+        /** @private */
+        this.left = null;
+        /** @private */
+        this.right = null;
+    }
+}
+
+/**
+ * Represents a binary tree.
+ * @class
+ */
+class BinaryTree {
+    /**
+     * Constructor for the BinaryTree class.
+     * @param {Node} root - The root node of the binary tree.
+     */
+    constructor(root) {
+        /** @private */
+        this.root = root;
+    }
+
+    /**
+     * Traverses the binary tree in pre-order.
+     * @param {Node} node - The current node being traversed.
+     * @param {function} callback - The callback function to be executed on each node.
+     */
+    preOrderTraversal(node, callback) {
+        if (node !== null) {
+            callback(node.value);
+            this.preOrderTraversal(node.left, callback);
+            this.preOrderTraversal(node.right, callback);
+        }
+    }
+
+    /**
+     * Traverses the binary tree in in-order.
+     * @param {Node} node - The current node being traversed.
+     * @param {function} callback - The callback function to be executed on each node.
+     */
+    inOrderTraversal(node, callback) {
+        if (node !== null) {
+            this.inOrderTraversal(node.left, callback);
+            callback(node.value);
+            this.inOrderTraversal(node.right, callback);
+        }
+    }
+
+    /**
+     * Traverses the binary tree in post-order.
+     * @param {Node} node - The current node being traversed.
+     * @param {function} callback - The callback function to be executed on each node.
+     */
+    postOrderTraversal(node, callback) {
+        if (node !== null) {
+            this.postOrderTraversal(node.left, callback);
+            this.postOrderTraversal(node.right, callback);
+            callback(node.value);
+        }
+    }
+}
+
+// Usage Example for BinaryTree
+
+// Create a binary tree
+const root = new Node(1);
+root.left = new Node(2);
+root.right = new Node(3);
+root.left.left = new Node(4);
+root.left.right = new Node(5);
+root.right.left = new Node(6);
+root.right.right = new Node(7);
+
+const tree = new BinaryTree(root);
+
+// Pre-order traversal
+console.log("Pre-order traversal:");
+tree.preOrderTraversal(tree.root, (value) => {
+    console.log(value);
+});
+
+// In-order traversal
+console.log("In-order traversal:");
+tree.inOrderTraversal(tree.root, (value) => {
+    console.log(value);
+});
+
+// Post-order traversal
+console.log("Post-order traversal:");
+tree.postOrderTraversal(tree.root, (value) => {
+    console.log(value);
+});
